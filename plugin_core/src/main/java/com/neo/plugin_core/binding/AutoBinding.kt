@@ -17,30 +17,32 @@ class AutoBinding<V:ViewDataBinding>(private val owner: LifecycleOwner, val view
 
     operator fun getValue(thisRef:Any?, property: KProperty<*>)  = this
 
-    //必须 - setValue
     operator fun setValue(thisRef:Any?, property: KProperty<*>, value: Any) {
         viewDataBinding?.apply {
             list.forEach {
                 val viewModel = initViewModel(it.viewModelClass)
                 setVariable(it.variableId, viewModel)
                 lifecycleOwner = owner
-                if (viewModel is BaseCoreViewModel<*,*>){
-                    viewModel.onViewBind()
-                }
+                viewModel.onViewBind()
                 it.viewModel = viewModel
             }
         }
     }
 
-    private fun initViewModel(viewModelClass: Class<ViewModel>) : ViewModel =
+    private fun initViewModel(viewModelClass: Class<BaseCoreViewModel<*,*>>) : BaseCoreViewModel<*,*> =
         ViewModelProvider.AndroidViewModelFactory.getInstance(BaseCoreApplication.context).create(viewModelClass)
 
-    fun <M:BaseCoreViewModel<*,*>>getViewModel() : M{
+    fun getViewModel(className : Class<BaseCoreViewModel<*,*>>) : BaseCoreViewModel<*,*>{
         list.forEach {
-
+            if (className == it.viewModelClass){
+                return it.viewModel as BaseCoreViewModel<*,*>
+            }
         }
+        return initViewModel(className)
     }
 
-
+    data class BindingType(val variableId : Int,var viewModelClass: Class<BaseCoreViewModel<*,*>>){
+        var viewModel : ViewModel? = null
+    }
 
 }
