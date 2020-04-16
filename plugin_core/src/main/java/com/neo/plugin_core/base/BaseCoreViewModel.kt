@@ -1,8 +1,6 @@
 package com.neo.plugin_core.base
 
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.neo.plugin_core.impl.BaseCoreViewModelImpl
 
 /**
@@ -10,12 +8,15 @@ import com.neo.plugin_core.impl.BaseCoreViewModelImpl
  * @date: Create in 2:28 PM 2020/4/15
  * @description: please add a description here
  */
-class BaseCoreViewModel<Q , S>(requestModel : Q?,resultModel : S?) : ViewModel() ,
-    BaseCoreViewModelImpl {
+open class BaseCoreViewModel<T> : ViewModel() ,
+    BaseCoreViewModelImpl,LifecycleObserver {
+    var model : T? = null
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     override fun onViewBind() {
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     override fun onViewDestory() {
     }
 

@@ -8,16 +8,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.neo.plugin_core.binding.AutoBinding
 
 /**
  * @author: hongyaming
  * @date: Create in 2:27 PM 2020/4/15
  * @description: please add a description here
  */
-abstract class BaseCoreFragment<T:BaseCoreViewModel<Any?,Any?>,V: ViewDataBinding>  : Fragment() {
+abstract class BaseCoreFragment<V: ViewDataBinding>  : Fragment() {
 
     var viewDataBinding : V? = null
-    var viewModel : T? = null
+    var autoBinding : AutoBinding<V> by AutoBinding(this, this.getViewModelBind())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +29,8 @@ abstract class BaseCoreFragment<T:BaseCoreViewModel<Any?,Any?>,V: ViewDataBindin
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(activity),getLayout(),container,false)
-        viewDataBinding?.apply {
-            lifecycleOwner = this@BaseCoreFragment
-            viewModel = initViewModel()
-            setVariable(getBindVMBR(),viewModel)
-            viewModel?.onViewBind()
-        }
+        autoBinding.viewDataBinding = viewDataBinding
         return viewDataBinding?.root
     }
 
@@ -46,10 +41,7 @@ abstract class BaseCoreFragment<T:BaseCoreViewModel<Any?,Any?>,V: ViewDataBindin
     override fun onDestroy() {
         super.onDestroy()
     }
-
-    private fun initViewModel() : T =
-        ViewModelProvider.AndroidViewModelFactory.getInstance(BaseCoreApplication.context).create(getViewModelClass())
     abstract fun getLayout() : Int
-    abstract fun getBindVMBR() : Int
-    abstract fun getViewModelClass() : Class<T>
+    abstract fun getViewModelBind() : ArrayList<AutoBinding.BindingType>
+    inline fun <reified VM : BaseCoreViewModel<*>> getViewModel() : VM = autoBinding.getViewModel(VM::class.java) as VM
 }
