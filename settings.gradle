@@ -1,3 +1,4 @@
 include ':app'
 rootProject.name='Kotlin-Android-Core'
 include ':plugin_core'
+include ':plugin_http'
