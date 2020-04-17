@@ -9,7 +9,7 @@
             type="com.hym.kotlin_android_core.MainActivityVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.neo.plugin_layout.auto.AutoConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
@@ -26,5 +26,5 @@
             android:onClick="@{(v)->viewModel.onClick(v)}"
             />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.neo.plugin_layout.auto.AutoConstraintLayout>
 </layout>

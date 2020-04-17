@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/plugin_core" />
             <option value="$PROJECT_DIR$/plugin_http" />
+            <option value="$PROJECT_DIR$/plugin_layout" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

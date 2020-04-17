@@ -9,7 +9,7 @@
             type="com.hym.kotlin_android_core.SecondVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.neo.plugin_layout.auto.AutoConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
@@ -25,5 +25,5 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.neo.plugin_layout.auto.AutoConstraintLayout>
 </layout>
