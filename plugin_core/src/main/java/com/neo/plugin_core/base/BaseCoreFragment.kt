@@ -18,7 +18,7 @@ import com.neo.plugin_core.binding.AutoBinding
 abstract class BaseCoreFragment<V: ViewDataBinding>  : Fragment() {
 
     var viewDataBinding : V? = null
-    var autoBinding : AutoBinding<V> by AutoBinding(this, this.getViewModelBind())
+    var autoBinding : AutoBinding<V> by AutoBinding(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +42,5 @@ abstract class BaseCoreFragment<V: ViewDataBinding>  : Fragment() {
         super.onDestroy()
     }
     abstract fun getLayout() : Int
-    abstract fun getViewModelBind() : ArrayList<AutoBinding.BindingType>
-    inline fun <reified VM : BaseCoreViewModel<*>> getViewModel() : VM = autoBinding.getViewModel(VM::class.java) as VM
+    inline fun <reified VM : BaseCoreViewModel<*>> bindVM(variableId : Int) : VM = autoBinding.bindVM(variableId,VM::class.java) as VM
 }

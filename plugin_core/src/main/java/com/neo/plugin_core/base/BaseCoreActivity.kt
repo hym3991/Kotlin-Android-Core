@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -17,7 +18,7 @@ import com.neo.plugin_core.binding.AutoBinding
 abstract class BaseCoreActivity<V:ViewDataBinding> : AppCompatActivity() {
 
     var viewDataBinding : V? = null
-    var autoBinding : AutoBinding<V> by AutoBinding(this, this.getViewModelBind())
+    var autoBinding : AutoBinding<V> by AutoBinding(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +31,10 @@ abstract class BaseCoreActivity<V:ViewDataBinding> : AppCompatActivity() {
     }
 
     abstract fun getLayout() : Int
-    abstract fun getViewModelBind() : ArrayList<AutoBinding.BindingType>
-
     inline fun <reified T : Activity> Context.startActivity(){
         val intent = Intent(this,T :: class.java)
         startActivity(intent)
     }
 
-    inline fun <reified VM : BaseCoreViewModel<*>> getViewModel() : VM = autoBinding.getViewModel(VM::class.java) as VM
+    inline fun <reified VM : BaseCoreViewModel<*>> bindVM(variableId : Int) : VM = autoBinding.bindVM(variableId,VM::class.java) as VM
 }

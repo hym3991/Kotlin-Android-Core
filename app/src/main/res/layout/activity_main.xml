@@ -6,9 +6,9 @@
     <data>
         <variable
             name="viewModel"
-            type="com.hym.kotlin_android_core.MainActivity" />
+            type="com.hym.kotlin_android_core.MainActivityVM" />
         <variable
-            name="secondVM"
+            name="secondViewModel"
             type="com.hym.kotlin_android_core.SecondVM" />
     </data>
 
@@ -21,7 +21,7 @@
             android:id="@+id/main_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text="@{viewModel.text}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

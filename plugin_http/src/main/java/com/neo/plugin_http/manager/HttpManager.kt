@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient
 class HttpManager {
     private fun initOkHttpClient(serviceName : String){
         var builder : OkHttpClient.Builder
-        builder.connectTimeout(HttpCon)
+        //builder.connectTimeout(HttpCon)
     }
 
 }

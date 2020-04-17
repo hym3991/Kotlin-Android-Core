@@ -17,23 +17,21 @@ import kotlin.reflect.KProperty
  * @date: Create in 5:13 PM 2020/4/15
  * @description: please add a description here
  */
-class AutoBinding<V:ViewDataBinding>(private val owner: LifecycleOwner, private val list: ArrayList<BindingType>) {
+class AutoBinding<V:ViewDataBinding>(private val owner: LifecycleOwner) {
 
     var viewDataBinding : V? = null
+    set(value) {
+        field = value
+        typeBindArray.forEach {
+            value?.setVariable(it.variableId,it.viewModel)
+        }
+    }
+    var typeBindArray : ArrayList<BindingType> = arrayListOf()
 
     @RequiresApi(Build.VERSION_CODES.N)
     operator fun getValue(thisRef:Any?, property: KProperty<*>): AutoBinding<V> {
-        Log.e("hym","getValue")
         viewDataBinding?.apply {
-            list.forEach {
-                if (it.viewModel == null) {
-                    val viewModel = initViewModel(it.viewModelClass)
-                    lifecycleOwner = owner
-                    it.viewModel = viewModel
-                    owner.lifecycle.addObserver(viewModel)
-                    setVariable(it.variableId, viewModel)
-                }
-            }
+            lifecycleOwner = owner
         }
         return this
     }
@@ -45,12 +43,18 @@ class AutoBinding<V:ViewDataBinding>(private val owner: LifecycleOwner, private 
     private fun initViewModel(viewModelClass: Class<out BaseCoreViewModel<*>>) : BaseCoreViewModel<*> =
         ViewModelProvider.AndroidViewModelFactory.getInstance(BaseCoreApplication.context).create(viewModelClass)
 
-    fun getViewModel(VM : Class<out BaseCoreViewModel<*>>) : ViewModel? {
-        val finds = list.find { it.viewModelClass == VM::class.java }
-        return finds?.viewModel
-    }
+    data class BindingType(val variableId: Int,val viewModelClass: Class<out BaseCoreViewModel<*>>, var viewModel : ViewModel?)
 
-    data class BindingType(val variableId: Int,val viewModelClass: Class<out BaseCoreViewModel<*>>){
-        var viewModel : ViewModel? = null
+    fun bindVM(variableId : Int,VM : Class<out BaseCoreViewModel<*>>) : ViewModel?{
+        val findResult = typeBindArray.find { it.viewModelClass == VM::class.java }
+        return if (findResult == null){
+            val viewModel = initViewModel(VM)
+            typeBindArray.add(BindingType(variableId,VM,viewModel))
+            owner.lifecycle.addObserver(viewModel)
+            viewModel
+
+        }else{
+            findResult.viewModel
+        }
     }
 }

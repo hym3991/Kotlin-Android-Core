@@ -25,4 +25,5 @@ open class BaseCoreViewModel<T> : ViewModel() ,
 
     override fun refreshNewData() {
     }
+
 }
