@@ -9,17 +9,11 @@ import com.neo.plugin_core.base.BaseCoreActivity
 class MainActivity : BaseCoreActivity<ActivityMainBinding>() {
 
     var mainActivityVM : MainActivityVM = bindVM(BR.viewModel)
-    var secondVM: SecondVM = bindVM(BR.secondViewModel)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewDataBinding?.apply {
-            mainTitle.setOnClickListener {
-                Toast.makeText(this@MainActivity,"click",Toast.LENGTH_LONG).show()
-            }
             Log.e("hym","mainActivityVM - >$mainActivityVM")
-            Log.e("hym","secondVM - >$secondVM")
-
             mainActivityVM.settext("hahahahahahaha")
         }
     }

@@ -2,6 +2,7 @@ package com.neo.plugin_core.base
 
 import androidx.lifecycle.*
 import com.neo.plugin_core.impl.BaseCoreViewModelImpl
+import com.neo.plugin_core.manager.VMJumpModel
 
 /**
  * @author: hongyaming
@@ -11,6 +12,7 @@ import com.neo.plugin_core.impl.BaseCoreViewModelImpl
 open class BaseCoreViewModel<T> : ViewModel() ,
     BaseCoreViewModelImpl,LifecycleObserver {
     var model : T? = null
+    var jump : MutableLiveData<VMJumpModel> = MutableLiveData()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     override fun onViewBind() {

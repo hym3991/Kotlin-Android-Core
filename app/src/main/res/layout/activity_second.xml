@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.hym.kotlin_android_core.MainActivityVM" />
+            type="com.hym.kotlin_android_core.SecondVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,12 +18,11 @@
             android:id="@+id/main_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.text}"
+            android:text="2222222"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{(v)->viewModel.onClick(v)}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,11 @@
 package com.hym.kotlin_android_core
 
 import android.util.Log
+import android.view.View
 import androidx.databinding.ObservableField
 import com.neo.plugin_core.base.BaseCoreModel
 import com.neo.plugin_core.base.BaseCoreViewModel
+import com.neo.plugin_core.manager.jump
 import java.util.*
 
 /**
@@ -23,10 +25,15 @@ class MainActivityVM : BaseCoreViewModel<BaseCoreModel>() {
     override fun onViewBind() {
         super.onViewBind()
         Log.e("hym","MainActivityVM onViewBind")
+
     }
 
     override fun onViewDestory() {
         super.onViewDestory()
         Log.e("hym","MainActivityVM onViewDestory")
+    }
+
+    fun onClick(view : View?){
+        jump<SecondActivity>()
     }
 }
