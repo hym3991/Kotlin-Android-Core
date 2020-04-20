@@ -3,6 +3,7 @@ package com.neo.plugin_core.manager
 import android.content.Intent
 import com.neo.plugin_core.base.BaseCoreActivity
 import com.neo.plugin_core.base.BaseCoreFragment
+import com.neo.plugin_core.base.BaseCoreItemViewModel
 import com.neo.plugin_core.base.BaseCoreViewModel
 
 /**
@@ -82,5 +83,10 @@ inline fun <reified A : BaseCoreActivity<*>> BaseCoreViewModel<*>.jump(resultCod
     model.configIntent = copnfigIntent
     model.resultCode = resultCode
     jump.postValue(model)
+}
+
+//BaseCoreItemViewModel 跳转
+inline fun <reified A : BaseCoreActivity<*>> BaseCoreItemViewModel<*>.jump(){
+
 }
 

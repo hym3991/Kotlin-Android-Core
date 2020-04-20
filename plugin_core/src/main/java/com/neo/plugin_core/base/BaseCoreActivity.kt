@@ -18,6 +18,8 @@ abstract class BaseCoreActivity<V:ViewDataBinding> : AppCompatActivity(),AutoBin
     var viewDataBinding : V? = null
     var autoBinding : AutoBinding<V> by AutoBinding(this)
 
+    var test : () -> Unit = {}
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewDataBinding = DataBindingUtil.setContentView<V>(this,getLayout())

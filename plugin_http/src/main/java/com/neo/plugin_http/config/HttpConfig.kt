@@ -14,7 +14,7 @@ object HttpConfig {
     var application : Context? = null
     var timeOut = 30f //超时时间
     var isRetry = false
-
+    var baseUrl : String? = null
     fun setIsRetry(isRetry: Boolean) {
         HttpConfig.isRetry = isRetry
     }
@@ -70,6 +70,5 @@ object HttpConfig {
         var url: String? = null
         var host: String? = null
         var serviceName: String? = null
-
     }
 }

@@ -9,7 +9,7 @@ import com.neo.plugin_core.manager.VMJumpModel
  * @date: Create in 2:28 PM 2020/4/15
  * @description: please add a description here
  */
-open class BaseCoreViewModel<T> : ViewModel() ,
+abstract class BaseCoreViewModel<T> : ViewModel() ,
     BaseCoreViewModelImpl,LifecycleObserver {
     var model : T? = null
     var jump : MutableLiveData<VMJumpModel> = MutableLiveData()
