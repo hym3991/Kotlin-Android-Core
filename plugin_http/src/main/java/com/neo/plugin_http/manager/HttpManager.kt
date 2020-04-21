@@ -3,7 +3,6 @@ package com.neo.plugin_http.manager
 import com.neo.plugin_http.HttpUtils
 import com.neo.plugin_http.config.HttpConfig
 import com.neo.plugin_http.config.SSLSocketFactoryCompat
-import com.neo.plugin_http.config.KJsonConverter
 import com.neo.plugin_http.interceptor.HttpTnterceptor
 import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
@@ -38,7 +37,7 @@ object HttpManager {
         builder.readTimeout((HttpConfig.timeOut + 5).toLong(),TimeUnit.SECONDS)
         val x509TrustManager = HttpUtils.getX509TrustManager()
         builder.sslSocketFactory(SSLSocketFactoryCompat(x509TrustManager),x509TrustManager)
-        val APPROVED_CIPHER_SUITES = listOf<CipherSuite>(
+        val list = listOf<CipherSuite>(
             CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
             CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
             CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
@@ -57,7 +56,7 @@ object HttpManager {
         )
         val spec = ConnectionSpec.Builder(ConnectionSpec.CLEARTEXT)
             .tlsVersions(TlsVersion.TLS_1_2, TlsVersion.TLS_1_1, TlsVersion.TLS_1_0)
-            .cipherSuites(APPROVED_CIPHER_SUITES.toString())
+            .cipherSuites(list.toString())
             .build()
         builder.connectionSpecs(Util.immutableList(spec, ConnectionSpec.CLEARTEXT))
         builder.addInterceptor(HttpTnterceptor(serviceName))
